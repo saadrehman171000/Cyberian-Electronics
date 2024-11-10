@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import {
+  ArrowRight,
   CheckCircle,
   Zap,
   Cog,
@@ -27,7 +28,7 @@ import {
 } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -53,13 +54,31 @@ const testimonials = [
   { content: "Cyberian Electronics' PLC solutions have significantly improved our manufacturing efficiency. Their support team is always ready to help.", author: "Ahmed Khan", role: "Production Manager at PakTech Industries" },
   { content: "The customized SCADA system from Cyberian Electronics has given us unprecedented control and visibility over our operations. Highly recommended!", author: "Fatima Zaidi", role: "CEO of Karachi Automation Systems" },
   { content: "We've seen a 30% increase in productivity since implementing Cyberian Electronics' automation solutions. Their expertise is unmatched.", author: "Rahul Sharma", role: "Operations Director at IndoTech Manufacturing" },
+  { content: "Cyberian Electronics has been instrumental in modernizing our production lines. Their innovative solutions have given us a competitive edge.", author: "Zainab Ali", role: "CTO at PACKEGES LIMITED" },
+  { content: "The reliability of Cyberian's products is outstanding. We've significantly reduced downtime in our manufacturing processes.", author: "Muhammad Imran", role: "Plant Manager at HONDAATLAS CARS PAKISTAN" },
+  { content: "Cyberian's automation solutions have helped us maintain consistent quality across our product lines. A game-changer for our operations.", author: "Ayesha Khan", role: "Quality Assurance Manager at ENGRO FOODS" },
+  { content: "The energy efficiency improvements we've achieved with Cyberian's systems have had a substantial impact on our bottom line.", author: "Hassan Raza", role: "Operations Manager at NAYYER CARPETS" },
+  { content: "Cyberian's expertise in industrial automation has been crucial in our digital transformation journey.", author: "Saira Malik", role: "IT Director at SERVICE INDUSTRIES" },
+  { content: "The scalability of Cyberian's solutions has allowed us to easily expand our operations without compromising on efficiency.", author: "Ali Ahmed", role: "Expansion Manager at PAKSITAN STATE OIL (PSO)" },
+  { content: "Cyberian's after-sales support is exceptional. They're always available to help us optimize our systems.", author: "Nadia Hussain", role: "Maintenance Supervisor at UNILEVER PAKISTAN" },
+  { content: "The user-friendly interfaces of Cyberian's HMI systems have significantly reduced our training time for new operators.", author: "Kamran Yousuf", role: "HR Manager at DARSON INDUSTRIES" },
+  { content: "Cyberian's solutions have helped us achieve our sustainability goals by optimizing our resource usage.", author: "Farhan Khan", role: "Sustainability Officer at LUCKY CEMENT" },
+  { content: "The data analytics capabilities of Cyberian's SCADA systems have provided us with invaluable insights for process improvement.", author: "Sana Tariq", role: "Process Engineer at MAPLELEAF CEMENT" },
+  { content: "Cyberian's custom solutions perfectly addressed our unique manufacturing challenges. They truly understand our industry.", author: "Usman Ali", role: "Production Director at TETRAPACK" },
+  { content: "The robustness of Cyberian's PLCs has significantly improved our system uptime. A reliable partner for critical operations.", author: "Amina Siddiqui", role: "Reliability Engineer at I-PAK" },
+]
+
+const products = [
+  { name: 'Advanced PLC X1000', description: 'Next-generation programmable logic controller for industrial automation.', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGxjfGVufDB8fDB8fHww' },
+  { name: 'SmartHMI Pro', description: 'Intuitive human-machine interface with multi-touch capabilities.', image: 'https://images.unsplash.com/photo-1598599462728-02161125ad0a?q=80&w=3872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  { name: 'InverterMax 5000', description: 'High-efficiency inverter for precise motor control and energy savings.', image: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGxjfGVufDB8fDB8fHww' },
 ]
 
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
+  { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/profile.php?id=100057517116871' },
   { name: 'Twitter', icon: Twitter, href: '#' },
   { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/company/cyberian-electronics/' },
   { name: 'GitHub', icon: Github, href: '#' },
 ]
 
@@ -150,8 +169,8 @@ export default function Home() {
                       {link.name}
                     </a>
                   ))}
-                  <Link href="/quote" className="w-full mt-2">
-                    <Button>
+                  <Link href="/quote" className="block w-full mt-2">
+                    <Button className="w-full">
                       Get a Quote
                     </Button>
                   </Link>
@@ -177,10 +196,10 @@ export default function Home() {
                 </p>
                 <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                   <Button asChild size="lg" className="mr-4">
-                    <a href="#products">Explore Products</a>
+                    <a href="#products" onClick={(e) => scrollToSection(e, '#products')}>Explore Products</a>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <a href="#contact">Contact Us</a>
+                    <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')}>Contact Us</a>
                   </Button>
                 </div>
               </div>
@@ -303,7 +322,7 @@ export default function Home() {
             <div className="lg:text-center">
               <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Testimonials</h2>
               <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Trusted by Industry Leaders
+                Trusted By Industry Leaders
               </p>
             </div>
             <div className="mt-20">
@@ -359,7 +378,7 @@ export default function Home() {
                     <CardTitle>Email</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300">info@cyberian.com</p>
+                    <p className="text-gray-600 dark:text-gray-300">mfdanish90@gmail.com</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-white dark:bg-gray-800">
@@ -368,7 +387,7 @@ export default function Home() {
                     <CardTitle>Phone</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-gray-600 dark:text-gray-300">+92 (313) 2879778</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-white dark:bg-gray-800 sm:col-span-2 lg:col-span-1">
@@ -377,7 +396,7 @@ export default function Home() {
                     <CardTitle>Address</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300">123 Innovation Drive, Tech City, TC 12345</p>
+                    <p className="text-gray-600 dark:text-gray-300">Orangi Town, Karachi, Pakistan.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -478,7 +497,8 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
+                  <h3 className="text-sm font-semibol
+d text-gray-400 uppercase tracking-wider">Support</h3>
                   <ul role="list" className="mt-4 space-y-4">
                     {['Documentation', 'Guides', 'API Status', 'Contact Us'].map((item) => (
                       <li key={item}>
