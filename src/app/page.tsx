@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import {
-  ArrowRight,
   CheckCircle,
   Zap,
   Cog,
@@ -28,7 +27,7 @@ import {
 } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -54,12 +53,6 @@ const testimonials = [
   { content: "Cyberian Electronics' PLC solutions have significantly improved our manufacturing efficiency. Their support team is always ready to help.", author: "Ahmed Khan", role: "Production Manager at PakTech Industries" },
   { content: "The customized SCADA system from Cyberian Electronics has given us unprecedented control and visibility over our operations. Highly recommended!", author: "Fatima Zaidi", role: "CEO of Karachi Automation Systems" },
   { content: "We've seen a 30% increase in productivity since implementing Cyberian Electronics' automation solutions. Their expertise is unmatched.", author: "Rahul Sharma", role: "Operations Director at IndoTech Manufacturing" },
-]
-
-const products = [
-  { name: 'Advanced PLC X1000', description: 'Next-generation programmable logic controller for industrial automation.', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGxjfGVufDB8fDB8fHww' },
-  { name: 'SmartHMI Pro', description: 'Intuitive human-machine interface with multi-touch capabilities.', image: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGxjfGVufDB8fDB8fHww' },
-  { name: 'InverterMax 5000', description: 'High-efficiency inverter for precise motor control and energy savings.', image: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGxjfGVufDB8fDB8fHww' },
 ]
 
 const socialLinks = [
