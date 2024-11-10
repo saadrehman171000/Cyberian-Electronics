@@ -5,15 +5,9 @@
 4 silly config load:file:E:\Saad Rehman-GitHub\Cyberian-Electronics\.npmrc
 5 silly config load:file:C:\Users\saadr\.npmrc
 6 silly config load:file:C:\Users\saadr\AppData\Roaming\npm\etc\npmrc
-7 verbose title npm run build
-8 verbose argv "run" "build"
-9 verbose logfile logs-max:10 dir:E:\Saad Rehman-GitHub\Cyberian-Electronics\%APPDATA%\npm-cache\_logs\2024-11-10T17_11_37_368Z-
-10 verbose logfile E:\Saad Rehman-GitHub\Cyberian-Electronics\%APPDATA%\npm-cache\_logs\2024-11-10T17_11_37_368Z-debug-0.log
+7 verbose title npm run dev
+8 verbose argv "run" "dev"
+9 verbose logfile logs-max:10 dir:E:\Saad Rehman-GitHub\Cyberian-Electronics\%APPDATA%\npm-cache\_logs\2024-11-10T18_16_34_381Z-
+10 verbose logfile E:\Saad Rehman-GitHub\Cyberian-Electronics\%APPDATA%\npm-cache\_logs\2024-11-10T18_16_34_381Z-debug-0.log
 11 silly logfile start cleaning logs, removing 1 files
 12 silly logfile done cleaning log files
-13 verbose cwd E:\Saad Rehman-GitHub\Cyberian-Electronics
-14 verbose os Windows_NT 10.0.22631
-15 verbose node v22.3.0
-16 verbose npm  v10.8.1
-17 verbose exit 1
-18 verbose code 1

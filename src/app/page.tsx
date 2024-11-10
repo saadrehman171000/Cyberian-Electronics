@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import {
-  ArrowRight,
   CheckCircle,
   Zap,
   Cog,
@@ -28,7 +27,7 @@ import {
 } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -54,18 +53,6 @@ const testimonials = [
   { content: "Cyberian Electronics' PLC solutions have significantly improved our manufacturing efficiency. Their support team is always ready to help.", author: "Ahmed Khan", role: "Production Manager at PakTech Industries" },
   { content: "The customized SCADA system from Cyberian Electronics has given us unprecedented control and visibility over our operations. Highly recommended!", author: "Fatima Zaidi", role: "CEO of Karachi Automation Systems" },
   { content: "We've seen a 30% increase in productivity since implementing Cyberian Electronics' automation solutions. Their expertise is unmatched.", author: "Rahul Sharma", role: "Operations Director at IndoTech Manufacturing" },
-  { content: "Cyberian Electronics has been instrumental in modernizing our production lines. Their innovative solutions have given us a competitive edge.", author: "Zainab Ali", role: "CTO at PACKEGES LIMITED" },
-  { content: "The reliability of Cyberian's products is outstanding. We've significantly reduced downtime in our manufacturing processes.", author: "Muhammad Imran", role: "Plant Manager at HONDAATLAS CARS PAKISTAN" },
-  { content: "Cyberian's automation solutions have helped us maintain consistent quality across our product lines. A game-changer for our operations.", author: "Ayesha Khan", role: "Quality Assurance Manager at ENGRO FOODS" },
-  { content: "The energy efficiency improvements we've achieved with Cyberian's systems have had a substantial impact on our bottom line.", author: "Hassan Raza", role: "Operations Manager at NAYYER CARPETS" },
-  { content: "Cyberian's expertise in industrial automation has been crucial in our digital transformation journey.", author: "Saira Malik", role: "IT Director at SERVICE INDUSTRIES" },
-  { content: "The scalability of Cyberian's solutions has allowed us to easily expand our operations without compromising on efficiency.", author: "Ali Ahmed", role: "Expansion Manager at PAKSITAN STATE OIL (PSO)" },
-  { content: "Cyberian's after-sales support is exceptional. They're always available to help us optimize our systems.", author: "Nadia Hussain", role: "Maintenance Supervisor at UNILEVER PAKISTAN" },
-  { content: "The user-friendly interfaces of Cyberian's HMI systems have significantly reduced our training time for new operators.", author: "Kamran Yousuf", role: "HR Manager at DARSON INDUSTRIES" },
-  { content: "Cyberian's solutions have helped us achieve our sustainability goals by optimizing our resource usage.", author: "Farhan Khan", role: "Sustainability Officer at LUCKY CEMENT" },
-  { content: "The data analytics capabilities of Cyberian's SCADA systems have provided us with invaluable insights for process improvement.", author: "Sana Tariq", role: "Process Engineer at MAPLELEAF CEMENT" },
-  { content: "Cyberian's custom solutions perfectly addressed our unique manufacturing challenges. They truly understand our industry.", author: "Usman Ali", role: "Production Director at TETRAPACK" },
-  { content: "The robustness of Cyberian's PLCs has significantly improved our system uptime. A reliable partner for critical operations.", author: "Amina Siddiqui", role: "Reliability Engineer at I-PAK" },
 ]
 
 const products = [
@@ -87,6 +74,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   useEffect(() => setMounted(true), [])
 
@@ -101,6 +89,38 @@ export default function Home() {
       setIsOpen(false)
     }
   }
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const data = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
+      
+      setFormStatus('success');
+      form.reset();
+    } catch (error) {
+      console.error('Submission error:', error);
+      setFormStatus('error');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
@@ -169,8 +189,8 @@ export default function Home() {
                       {link.name}
                     </a>
                   ))}
-                  <Link href="/quote" className="block w-full mt-2">
-                    <Button className="w-full">
+                  <Link href="/quote" className="w-full mt-2">
+                    <Button>
                       Get a Quote
                     </Button>
                   </Link>
@@ -196,10 +216,10 @@ export default function Home() {
                 </p>
                 <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                   <Button asChild size="lg" className="mr-4">
-                    <a href="#products" onClick={(e) => scrollToSection(e, '#products')}>Explore Products</a>
+                    <a href="#products">Explore Products</a>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')}>Contact Us</a>
+                    <a href="#contact">Contact Us</a>
                   </Button>
                 </div>
               </div>
@@ -322,7 +342,7 @@ export default function Home() {
             <div className="lg:text-center">
               <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Testimonials</h2>
               <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Trusted By Industry Leaders
+                Trusted by Industry Leaders
               </p>
             </div>
             <div className="mt-20">
@@ -406,32 +426,44 @@ export default function Home() {
                   <CardDescription>Fill out the form below and we'll get back to you shortly.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-6">
+                  <form onSubmit={handleContactSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">First name</Label>
-                        <Input id="firstName" placeholder="John" />
+                        <Input name="firstName" id="firstName" placeholder="John" required />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last name</Label>
-                        <Input id="lastName" placeholder="Doe" />
+                        <Input name="lastName" id="lastName" placeholder="Doe" required />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="john@example.com" />
+                      <Input name="email" id="email" type="email" placeholder="john@example.com" required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">Message</Label>
                       <Textarea
+                        name="message"
                         id="message"
                         placeholder="Tell us about your project..."
                         className="min-h-[150px]"
+                        required
                       />
                     </div>
-                    <Button type="submit" className="w-full sm:w-auto">
-                      Send Message
+                    <Button 
+                      type="submit" 
+                      className="w-full sm:w-auto"
+                      disabled={formStatus === 'submitting'}
+                    >
+                      {formStatus === 'submitting' ? 'Sending...' : 'Send Message'}
                     </Button>
+                    {formStatus === 'success' && (
+                      <p className="text-green-600 dark:text-green-400">Message sent successfully!</p>
+                    )}
+                    {formStatus === 'error' && (
+                      <p className="text-red-600 dark:text-red-400">Failed to send message. Please try again.</p>
+                    )}
                   </form>
                 </CardContent>
               </Card>
@@ -497,8 +529,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibol
-d text-gray-400 uppercase tracking-wider">Support</h3>
+                  <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
                   <ul role="list" className="mt-4 space-y-4">
                     {['Documentation', 'Guides', 'API Status', 'Contact Us'].map((item) => (
                       <li key={item}>

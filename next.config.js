@@ -5,10 +5,9 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        pathname: '/**',
       },
     ],
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig
